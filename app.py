@@ -10,6 +10,11 @@ from frontend.memoria_ui import interface_memoria
 from backend.glossario import carregar_glossario
 from backend.inmetro import configurar_textos_descarte
 from backend.tradutor import configurar_tradutor
+from backend.auth import autenticar
+
+if "autenticado" not in st.session_state or not st.session_state["autenticado"]:
+    autenticar()
+    st.stop()
 
 # Configuração inicial
 st.set_page_config(page_title="NeoTranslate", page_icon="assets/logo_neotranslate.png", layout="wide")
