@@ -1,0 +1,11 @@
+{
+    "Bateria de Lítio": "Este equipamento deve ser descartado em pontos específicos de coleta de baterias, conforme normas ambientais vigentes.",
+    "Inversor Off-grid": "Este equipamento deve ser encaminhado para reciclagem eletrônica especializada. Consulte pontos autorizados.",
+    "Inversor On-grid": "Este equipamento deve ser encaminhado para reciclagem eletrônica especializada. Consulte pontos autorizados.",
+    "Inversor Carregador": "Este equipamento deve ser encaminhado para reciclagem eletrônica especializada. Consulte pontos autorizados.",
+    "Inversor Híbrido": "Este equipamento deve ser encaminhado para reciclagem eletrônica especializada. Consulte pontos autorizados.",
+    "Controlador de Carga MPPT": "Este produto deve ser descartado de forma ambientalmente adequada, conforme orientações técnicas.",
+    "Painel Solar": "Painéis solares devem ser reciclados conforme programas especializados em logística reversa.",
+    "Estação de Energia": "Este produto deve ser encaminhado a pontos de coleta apropriados para eletrônicos.",
+    "Outros": "Para descarte correto, siga a legislação ambiental e encaminhe a pontos de coleta de eletrônicos."
+}

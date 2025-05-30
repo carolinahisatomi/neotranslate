@@ -1,0 +1,21 @@
+Próximos passos:
+Um botão tipo “✅ Marcar tudo como aprovado” para agilizar quando está tudo certo - OK
+Um relatório final com trechos reaproveitados da memória vs novos
+Criar uma interface de gerenciamento da memória - OK
+Adicionar suporte a revisão de tabelas e imagens 
+Aprimorar o banco de memória de tradução com seus CSVs
+Aplicar memória na tradução automática (para manter consistência) - OK
+Adicionar suporte à tabelas revisáveis na interface
+📦 Empacotar tudo para rodar facilmente (instalador, requirements.txt, etc.)
+🧪 Revisar interface para deixá-la mais intuitiva
+☁️ Hospedar o app (ex: Streamlit Cloud, servidor interno)
+👥 Adicionar controle de usuários ou permissões
+
+
+
+
+Ativar o app:
+.\venv\Scripts\activate
+
+Rodar o webapp:
+streamlit run app.py
