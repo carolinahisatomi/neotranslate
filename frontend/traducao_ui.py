@@ -39,17 +39,55 @@ def interface_traducao():
 
     exige_inmetro = st.checkbox("Este produto exige INMETRO?")
 
-    if arquivo:
-        if not arquivo.name.lower().endswith(".docx"):
-            st.error("❌ Apenas arquivos com extensão `.docx` são suportados. Por favor, envie um documento do Word.")
-            return
+    st.markdown("""
+        <style>
+            .centered-btn {
+                display: flex;
+                justify-content: center;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+            .neobotao {
+                background-color: #FFD54F;
+                color: #333333;
+                font-weight: bold;
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+                border: none;
+                border-radius: 12px;
+                box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                transition: all 0.2s ease-in-out;
+            }
+            .neobotao:hover {
+                background-color: #FFC107;
+                transform: scale(1.03);
+            }
+        </style>
+        <div class="centered-btn">
+            <form action="" method="post">
+                <button class="neobotao" name="start_translation" type="submit">🚀 Iniciar tradução</button>
+            </form>
+        </div>
+    """, unsafe_allow_html=True)
 
-        if st.button("Iniciar Tradução"):
+    if st.session_state.get("start_translation_submitted"):
+        if arquivo and arquivo.name.lower().endswith(".docx"):
             traduzir_docx_com_tudo(
                 arquivo=arquivo,
                 exige_inmetro=exige_inmetro,
                 tipo_equipamento=tipo_equipamento,
                 aplicar_glossario_func=lambda texto: aplicar_glossario(texto, glossario_dict)
             )
+        elif not arquivo:
+            st.warning("📂 Por favor, envie um arquivo antes de iniciar a tradução.")
+        else:
+            st.error("❌ O arquivo enviado não é .docx.")
+
+    if "start_translation_submitted" not in st.session_state:
+        st.session_state["start_translation_submitted"] = False
+
+    if st.form_submit_button("invisível"):  
+        st.session_state["start_translation_submitted"] = True
 
     st.markdown("<br><br>", unsafe_allow_html=True)
