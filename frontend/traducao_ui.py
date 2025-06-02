@@ -28,8 +28,6 @@ def interface_traducao():
         if not arquivo.name.lower().endswith(".docx"):
             st.error("❌ Apenas arquivos com extensão `.docx` são suportados. Por favor, envie um documento do Word.")
             return
-    
-    exige_inmetro = st.checkbox("Este produto exige INMETRO?")
 
     tipo_equipamento = st.selectbox("Selecione o tipo de equipamento", [
         "🔋 Bateria de Lítio",
@@ -42,6 +40,8 @@ def interface_traducao():
         "🔋 Estação de Energia",
         "📁 Outros"
     ])
+
+    exige_inmetro = st.checkbox("Este produto exige INMETRO?")
 
     if arquivo:
         traduzir_docx_com_tudo(
