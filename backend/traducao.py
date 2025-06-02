@@ -101,9 +101,11 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
             st.session_state[chave] = corrigido  # garante que fique disponível se checkbox foi marcado
         else:
             st.markdown(f"**Original:** {texto}")
-            if chave not in st.session_state:
-                st.session_state[chave] = traducao
-            corrigido = st.text_area("Tradução corrigida", value=st.session_state[chave], key=chave)
+            corrigido = st.text_area(
+                "Tradução corrigida",
+                key=chave,
+                value=traducao if chave not in st.session_state else st.session_state[chave]
+            )
 
         p = doc_final.add_paragraph(st.session_state[chave])
         run = p.runs[0]
