@@ -17,13 +17,6 @@ st.set_page_config(page_title="NeoTranslate", page_icon="assets/logo_neotranslat
 apply_style()
 render_header()
 
-#Login
-def main():
-    autenticar()
-
-    if not st.session_state.get("autenticado", False):
-        st.stop()
-
 # Carrega variáveis de ambiente e configura tradutor e glossário
 load_dotenv()
 DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
@@ -35,25 +28,32 @@ with open("textos_descarte.json", encoding="utf-8") as f:
     textos_descarte = json.load(f)
 configurar_textos_descarte(textos_descarte)
 
-# Menu lateral
-with st.sidebar:
-        modo = option_menu(
-            menu_title="",
-            options=["Traduzir Documento", "Gerenciar Memória"],
-            icons=["translate", "database"],
-            default_index=0,
-            styles={
-                "container": {"padding": "0.5rem", "background-color": "transparent"},
-                "icon": {"color": "#666666", "font-size": "18px"},
-                "nav-link": {"font-size": "13px", "text-align": "left", "margin": "4px 0", "--hover-color": "#f0f0f0", "color": "#33333300"},
-                "nav-link-selected": {"background-color": "#eaeaea", "color": "#FFFFFF", "font-weight": "bold"}
-            }
-        )
+#Login
+def main():
+    autenticar()
 
-if modo == "Traduzir Documento":
-        interface_traducao()
-elif modo == "Gerenciar Memória":
-        interface_memoria()
-        
-if __name__ == "__main__":
-    main()
+    if not st.session_state.get("autenticado", False):
+        st.stop()
+
+    # Menu lateral
+    with st.sidebar:
+            modo = option_menu(
+                menu_title="",
+                options=["Traduzir Documento", "Gerenciar Memória"],
+                icons=["translate", "database"],
+                default_index=0,
+                styles={
+                    "container": {"padding": "0.5rem", "background-color": "transparent"},
+                    "icon": {"color": "#666666", "font-size": "18px"},
+                    "nav-link": {"font-size": "13px", "text-align": "left", "margin": "4px 0", "--hover-color": "#f0f0f0", "color": "#33333300"},
+                    "nav-link-selected": {"background-color": "#eaeaea", "color": "#FFFFFF", "font-weight": "bold"}
+                }
+            )
+
+    if modo == "Traduzir Documento":
+            interface_traducao()
+    elif modo == "Gerenciar Memória":
+            interface_memoria()
+            
+    if __name__ == "__main__":
+        main()
