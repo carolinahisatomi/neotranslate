@@ -87,7 +87,7 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
     aprovar_tudo = st.checkbox("✅ Aprovar todas as traduções automaticamente", value=False)
 
     traducoes_corrigidas = []
-    for par in doc_origem.paragraphs:
+    for i, par in enumerate(doc_origem.paragraphs):
         texto = par.text.strip()
         if not texto:
             continue
@@ -98,7 +98,7 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
         else:
             st.markdown(f"**Original:** {texto}")
             hash_texto = hashlib.md5(texto.encode()).hexdigest()
-            corrigido = st.text_area("Tradução corrigida", value=traducao, key=f"par_{hash_texto}")
+            corrigido = st.text_area("Tradução corrigida", value=traducao, key=f"par_{i}_{hash_texto}")
 
         p = doc_final.add_paragraph(corrigido)
         run = p.runs[0]
