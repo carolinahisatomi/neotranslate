@@ -17,6 +17,13 @@ st.set_page_config(page_title="NeoTranslate", page_icon="assets/logo_neotranslat
 apply_style()
 render_header()
 
+#Login
+def main():
+    autenticar()
+
+    if not st.session_state.get("autenticado", False):
+        st.stop()
+
 # Carrega variáveis de ambiente e configura tradutor e glossário
 load_dotenv()
 DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
@@ -27,12 +34,6 @@ configurar_tradutor(DEEPL_API_KEY, glossario_dict)
 with open("textos_descarte.json", encoding="utf-8") as f:
     textos_descarte = json.load(f)
 configurar_textos_descarte(textos_descarte)
-
-def main():
-    autenticar()
-
-    if not st.session_state.get("autenticado", False):
-        st.stop()
 
 # Menu lateral
 with st.sidebar:
