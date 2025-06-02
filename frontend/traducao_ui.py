@@ -24,10 +24,6 @@ def interface_traducao():
 
     st.markdown("### 🗂️ Envie o arquivo em .docx")
     arquivo = st.file_uploader("📤 Arraste ou clique para enviar o manual (.docx)")
-    if arquivo:
-        if not arquivo.name.lower().endswith(".docx"):
-            st.error("❌ Apenas arquivos com extensão `.docx` são suportados. Por favor, envie um documento do Word.")
-            return
 
     tipo_equipamento = st.selectbox("Selecione o tipo de equipamento", [
         "🔋 Bateria de Lítio",
@@ -44,10 +40,17 @@ def interface_traducao():
     exige_inmetro = st.checkbox("Este produto exige INMETRO?")
 
     if arquivo:
-        traduzir_docx_com_tudo(
-    arquivo=arquivo,
-    exige_inmetro=exige_inmetro,
-    tipo_equipamento=tipo_equipamento,
-    aplicar_glossario_func=lambda texto: aplicar_glossario(texto, glossario_dict)
-)
+        if not arquivo.name.lower().endswith(".docx"):
+            st.error("❌ Apenas arquivos com extensão `.docx` são suportados. Por favor, envie um documento do Word.")
+            return
+
+        # ✅ Só exibe o botão se o arquivo for válido
+        if st.button("🚀 Iniciar tradução"):
+            traduzir_docx_com_tudo(
+                arquivo=arquivo,
+                exige_inmetro=exige_inmetro,
+                tipo_equipamento=tipo_equipamento,
+                aplicar_glossario_func=lambda texto: aplicar_glossario(texto, glossario_dict)
+            )
+
     st.markdown("<br><br>", unsafe_allow_html=True)
