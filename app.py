@@ -46,7 +46,7 @@ def main():
                     "container": {"padding": "0.5rem", "background-color": "transparent"},
                     "icon": {"color": "#666666", "font-size": "18px"},
                     "nav-link": {"font-size": "13px", "text-align": "left", "margin": "4px 0", "--hover-color": "#f0f0f0", "color": "#33333300"},
-                    "nav-link-selected": {"background-color": "#eaeaea", "color": "#FFFFFF", "font-weight": "bold"}
+                    "nav-link-selected": {"background-color": "#eaeaea00", "color": "#FFFFFFFF", "font-weight": "bold"}
                 }
             )
 
@@ -55,5 +55,5 @@ def main():
     elif modo == "Gerenciar Memória":
             interface_memoria()
             
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
