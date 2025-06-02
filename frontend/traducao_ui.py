@@ -22,12 +22,14 @@ TIPOS_INVERSOR = {
 def interface_traducao():
     st.title("NeoTranslate - Tradutor de Manuais")
 
-    st.markdown("### 🗂️ Etapa 1: Envio do arquivo")
+    st.markdown("### 🗂️ Envie o arquivo em .docx")
     arquivo = st.file_uploader("📤 Arraste ou clique para enviar o manual (.docx)")
     if arquivo:
         if not arquivo.name.lower().endswith(".docx"):
             st.error("❌ Apenas arquivos com extensão `.docx` são suportados. Por favor, envie um documento do Word.")
             return
+    
+    exige_inmetro = st.checkbox("Este produto exige INMETRO?")
 
     tipo_equipamento = st.selectbox("Selecione o tipo de equipamento", [
         "🔋 Bateria de Lítio",
@@ -40,8 +42,6 @@ def interface_traducao():
         "🔋 Estação de Energia",
         "📁 Outros"
     ])
-
-    exige_inmetro = st.checkbox("Este produto exige INMETRO?")
 
     if arquivo:
         traduzir_docx_com_tudo(
