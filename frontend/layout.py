@@ -6,7 +6,7 @@ def get_base64_image(path):
         return base64.b64encode(img_file.read()).decode("utf-8")
 
 def render_header():
-    logo_base64 = get_base64_image("assets/logo_neotranslate.png")
+    logo_base64 = get_base64_image("assets/logo_neotranslate_sn.png")
     st.markdown(f"""
         <div style='display: flex; justify-content: center; align-items: center; padding: 2rem 0;'>
             <img src="data:image/png;base64,{logo_base64}" style='height: 160px;' />
