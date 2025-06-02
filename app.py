@@ -12,9 +12,20 @@ from backend.inmetro import configurar_textos_descarte
 from backend.tradutor import configurar_tradutor
 from backend.auth import autenticar
 
-if "autenticado" not in st.session_state or not st.session_state["autenticado"]:
+def main():
     autenticar()
-    st.stop()
+
+    # Só continua se o usuário estiver autenticado
+    if not st.session_state.get("autenticado", False):
+        st.stop()
+
+    # Aqui começa o conteúdo do app
+    # por exemplo:
+    st.sidebar.success("✅ Acesso liberado")
+    interface_traducao()  # ou interface_memoria(), etc.
+
+if __name__ == "__main__":
+    main()
 
 # Configuração inicial
 st.set_page_config(page_title="NeoTranslate", page_icon="assets/logo_neotranslate.png", layout="wide")
