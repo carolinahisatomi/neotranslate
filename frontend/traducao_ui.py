@@ -70,7 +70,7 @@ def interface_traducao():
     # Exibe botão com estilo
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("🚀 Iniciar tradução", key="start_translation"):
+        if st.button("Iniciar tradução", key="start_translation"):
             if arquivo and arquivo.name.lower().endswith(".docx"):
                 traduzir_docx_com_tudo(
                     arquivo=arquivo,
