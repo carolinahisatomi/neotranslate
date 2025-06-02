@@ -70,22 +70,22 @@ def interface_traducao():
     if "traducao_iniciada" not in st.session_state:
         st.session_state["traducao_iniciada"] = False
 
-    # Botão visível sempre, mas só dispara 1x
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button("🚀 Iniciar tradução") and not st.session_state["traducao_iniciada"]:
-            st.session_state["traducao_iniciada"] = True
-
-    # Executa a tradução só depois de clicar no botão
+            if arquivo and arquivo.name.lower().endswith(".docx"):
+                st.session_state["traducao_iniciada"] = True
+                st.session_state["arquivo_traducao"] = arquivo
+                st.session_state["tipo_equipamento"] = tipo_equipamento
+                st.session_state["exige_inmetro"] = exige_inmetro
+            elif not arquivo:
+                st.warning("📂 Por favor, envie um arquivo antes de iniciar a tradução.")
+            else:
+                st.error("❌ O arquivo enviado não é .docx.")
     if st.session_state["traducao_iniciada"]:
-        if arquivo and arquivo.name.lower().endswith(".docx"):
-            traduzir_docx_com_tudo(
-                arquivo=arquivo,
-                exige_inmetro=exige_inmetro,
-                tipo_equipamento=tipo_equipamento,
-                aplicar_glossario_func=lambda texto: aplicar_glossario(texto, glossario_dict)
-            )
-        elif not arquivo:
-            st.warning("📂 Por favor, envie um arquivo antes de iniciar a tradução.")
-        else:
-            st.error("❌ O arquivo enviado não é .docx.")
+        traduzir_docx_com_tudo(
+            arquivo=st.session_state["arquivo_traducao"],
+            exige_inmetro=st.session_state["exige_inmetro"],
+            tipo_equipamento=st.session_state["tipo_equipamento"],
+            aplicar_glossario_func=lambda texto: aplicar_glossario(texto, glossario_dict)
+        )

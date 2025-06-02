@@ -68,7 +68,7 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
     memoria = carregar_memoria()
 
     estilo_base = {"fonte": "Arial", "tamanho": 10}
-    for i, par in enumerate (doc_origem.paragraphs):
+    for par in doc_origem.paragraphs:
         if par.text.strip() and par.runs:
             estilo_base["fonte"] = par.runs[0].font.name or "Arial"
             estilo_base["tamanho"] = par.runs[0].font.size.pt if par.runs[0].font.size else 10
@@ -91,20 +91,25 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
         texto = par.text.strip()
         if not texto:
             continue
+
         traducao, _ = traduzir_com_memoria(texto, memoria)
+        hash_texto = hashlib.md5(texto.encode()).hexdigest()
+        chave = f"par_{i}_{hash_texto}"
 
         if aprovar_tudo:
             corrigido = traducao
+            st.session_state[chave] = corrigido  # garante que fique disponível se checkbox foi marcado
         else:
             st.markdown(f"**Original:** {texto}")
-            hash_texto = hashlib.md5(texto.encode()).hexdigest()
-            corrigido = st.text_area("Tradução corrigida", value=traducao, key=f"par_{i}_{hash_texto}")
+            if chave not in st.session_state:
+                st.session_state[chave] = traducao
+            corrigido = st.text_area("Tradução corrigida", value=st.session_state[chave], key=chave)
 
-        p = doc_final.add_paragraph(corrigido)
+        p = doc_final.add_paragraph(st.session_state[chave])
         run = p.runs[0]
         run.font.name = estilo_base["fonte"]
         run.font.size = Pt(estilo_base["tamanho"])
-        traducoes_corrigidas.append((texto, traducao, corrigido))
+        traducoes_corrigidas.append((texto, traducao, st.session_state[chave]))
         itens_processados += 1
         progresso.progress(itens_processados / total_itens, text="Traduzindo conteúdo...")
 
@@ -138,5 +143,6 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
         file_name=nome_docx,
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
+
     st.success("Arquivo CSV salvo na pasta 'memoria_traducao'")
     progresso.empty()
