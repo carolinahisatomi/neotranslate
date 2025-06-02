@@ -12,21 +12,6 @@ from backend.inmetro import configurar_textos_descarte
 from backend.tradutor import configurar_tradutor
 from backend.auth import autenticar
 
-def main():
-    autenticar()
-
-    # Só continua se o usuário estiver autenticado
-    if not st.session_state.get("autenticado", False):
-        st.stop()
-
-    # Aqui começa o conteúdo do app
-    # por exemplo:
-    st.sidebar.success("✅ Acesso liberado")
-    interface_traducao()  # ou interface_memoria(), etc.
-
-if __name__ == "__main__":
-    main()
-
 # Configuração inicial
 st.set_page_config(page_title="NeoTranslate", page_icon="assets/logo_neotranslate.png", layout="wide")
 apply_style()
@@ -43,23 +28,31 @@ with open("textos_descarte.json", encoding="utf-8") as f:
     textos_descarte = json.load(f)
 configurar_textos_descarte(textos_descarte)
 
+def main():
+    autenticar()
+
+    if not st.session_state.get("autenticado", False):
+        st.stop()
+
 # Menu lateral
 with st.sidebar:
-    modo = option_menu(
-        menu_title="",
-        options=["Traduzir Documento", "Gerenciar Memória"],
-        icons=["translate", "database"],
-        default_index=0,
-        styles={
-            "container": {"padding": "0.5rem", "background-color": "transparent"},
-            "icon": {"color": "#666666", "font-size": "18px"},
-            "nav-link": {"font-size": "13px", "text-align": "left", "margin": "4px 0", "--hover-color": "#f0f0f0", "color": "#333333"},
-            "nav-link-selected": {"background-color": "#eaeaea", "color": "#000000", "font-weight": "bold"}
-        }
-    )
+        modo = option_menu(
+            menu_title="",
+            options=["Traduzir Documento", "Gerenciar Memória"],
+            icons=["translate", "database"],
+            default_index=0,
+            styles={
+                "container": {"padding": "0.5rem", "background-color": "transparent"},
+                "icon": {"color": "#666666", "font-size": "18px"},
+                "nav-link": {"font-size": "13px", "text-align": "left", "margin": "4px 0", "--hover-color": "#f0f0f0", "color": "#333333"},
+                "nav-link-selected": {"background-color": "#eaeaea", "color": "#000000", "font-weight": "bold"}
+            }
+        )
 
-# Rotas de interface
 if modo == "Traduzir Documento":
-    interface_traducao()
+        interface_traducao()
 elif modo == "Gerenciar Memória":
-    interface_memoria()
+        interface_memoria()
+        
+if __name__ == "__main__":
+    main()
