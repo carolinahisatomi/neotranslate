@@ -39,15 +39,16 @@ def interface_traducao():
 
     exige_inmetro = st.checkbox("Este produto exige INMETRO?")
 
+    # ✅ Botão grande e centralizado com estilo
     st.markdown("""
         <style>
-            .centered-btn {
+            .translate-btn {
                 display: flex;
                 justify-content: center;
-                margin-top: 2rem;
-                margin-bottom: 2rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
             }
-            .neobotao {
+            .translate-btn button {
                 background-color: #FFD54F;
                 color: #333333;
                 font-weight: bold;
@@ -57,37 +58,27 @@ def interface_traducao():
                 border-radius: 12px;
                 box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
                 cursor: pointer;
-                transition: all 0.2s ease-in-out;
+                transition: 0.2s ease;
             }
-            .neobotao:hover {
+            .translate-btn button:hover {
                 background-color: #FFC107;
                 transform: scale(1.03);
             }
         </style>
-        <div class="centered-btn">
-            <form action="" method="post">
-                <button class="neobotao" name="start_translation" type="submit">🚀 Iniciar tradução</button>
-            </form>
-        </div>
     """, unsafe_allow_html=True)
 
-    if st.session_state.get("start_translation_submitted"):
-        if arquivo and arquivo.name.lower().endswith(".docx"):
-            traduzir_docx_com_tudo(
-                arquivo=arquivo,
-                exige_inmetro=exige_inmetro,
-                tipo_equipamento=tipo_equipamento,
-                aplicar_glossario_func=lambda texto: aplicar_glossario(texto, glossario_dict)
-            )
-        elif not arquivo:
-            st.warning("📂 Por favor, envie um arquivo antes de iniciar a tradução.")
-        else:
-            st.error("❌ O arquivo enviado não é .docx.")
-
-    if "start_translation_submitted" not in st.session_state:
-        st.session_state["start_translation_submitted"] = False
-
-    if st.form_submit_button("invisível"):  
-        st.session_state["start_translation_submitted"] = True
-
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    # Exibe botão com estilo
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🚀 Iniciar tradução", key="start_translation"):
+            if arquivo and arquivo.name.lower().endswith(".docx"):
+                traduzir_docx_com_tudo(
+                    arquivo=arquivo,
+                    exige_inmetro=exige_inmetro,
+                    tipo_equipamento=tipo_equipamento,
+                    aplicar_glossario_func=lambda texto: aplicar_glossario(texto, glossario_dict)
+                )
+            elif not arquivo:
+                st.warning("📂 Por favor, envie um arquivo antes de iniciar a tradução.")
+            else:
+                st.error("❌ O arquivo enviado não é .docx.")
