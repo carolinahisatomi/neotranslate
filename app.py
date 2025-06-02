@@ -12,7 +12,7 @@ from backend.inmetro import configurar_textos_descarte
 from backend.tradutor import configurar_tradutor
 
 # Configuração inicial
-st.set_page_config(page_title="NeoTranslate", page_icon="assets/logo_neotranslate.png", layout="wide")
+st.set_page_config(page_title="NeoTranslate", page_icon="assets/logo_neotranslate_sn.png", layout="wide")
 apply_style()
 render_header()
 
