@@ -1,6 +1,7 @@
 import os
 import csv
 import time
+import hashlib
 from io import BytesIO
 from docx import Document
 from docx.shared import Pt
@@ -86,17 +87,18 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
     aprovar_tudo = st.checkbox("✅ Aprovar todas as traduções automaticamente", value=False)
 
     traducoes_corrigidas = []
-    for i, par in enumerate(doc_origem.paragraphs):  # ✅ garante índice único
+    for par in doc_origem.paragraphs:
         texto = par.text.strip()
         if not texto:
             continue
         traducao, _ = traduzir_com_memoria(texto, memoria)
+
         if aprovar_tudo:
             corrigido = traducao
         else:
             st.markdown(f"**Original:** {texto}")
-            chave_unica = f"correcao_{i}_{texto[:15].replace(' ', '_')}"
-            corrigido = st.text_area("Tradução corrigida", value=traducao, key=chave_unica)
+            hash_texto = hashlib.md5(texto.encode()).hexdigest()
+            corrigido = st.text_area("Tradução corrigida", value=traducao, key=f"par_{hash_texto}")
 
         p = doc_final.add_paragraph(corrigido)
         run = p.runs[0]
