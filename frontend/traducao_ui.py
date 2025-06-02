@@ -44,8 +44,7 @@ def interface_traducao():
             st.error("❌ Apenas arquivos com extensão `.docx` são suportados. Por favor, envie um documento do Word.")
             return
 
-        # ✅ Só exibe o botão se o arquivo for válido
-        if st.button("🚀 Iniciar tradução"):
+        if st.button("Iniciar Tradução"):
             traduzir_docx_com_tudo(
                 arquivo=arquivo,
                 exige_inmetro=exige_inmetro,
