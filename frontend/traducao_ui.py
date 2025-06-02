@@ -4,7 +4,7 @@ from backend.tradutor import traduzir_texto, traduzir_com_memoria
 from backend.memoria import carregar_memoria
 from backend.inmetro import adicionar_textos_inmetro, adicionar_texto_reciclagem
 from formatador_docx import adicionar_secoes_padrao
-from backend.traducao import traduzir_docx_com_tudo
+from backend.traducao import traduzir_docx_preservando_layout
 from backend.glossario import aplicar_glossario, carregar_glossario
 glossario_dict = carregar_glossario()
 from docx import Document
@@ -83,7 +83,7 @@ def interface_traducao():
             else:
                 st.error("❌ O arquivo enviado não é .docx.")
     if st.session_state["traducao_iniciada"]:
-        traduzir_docx_com_tudo(
+        traduzir_docx_preservando_layout(
             arquivo=st.session_state["arquivo_traducao"],
             exige_inmetro=st.session_state["exige_inmetro"],
             tipo_equipamento=st.session_state["tipo_equipamento"],
