@@ -19,3 +19,48 @@ Ativar o app:
 
 Rodar o webapp:
 streamlit run app.py
+
+
+🧭 Passo a Passo para salvar no GitHub
+✅ Etapa 1: Abrir o terminal na pasta do seu projeto
+Essa pasta deve conter seu app (por exemplo: app.py, frontend/, backend/, etc.) e o repositório Git já iniciado (ou seja, já tem um .git lá dentro e foi clonado do GitHub).
+
+✅ Etapa 2: Ver o que foi modificado
+
+git status
+
+🔍 O que esse comando faz:
+Mostra todos os arquivos que você editou, adicionou ou removeu desde o último commit. Ajuda a confirmar que o que você quer enviar está sendo detectado.
+
+✅ Etapa 3: Adicionar as alterações para o "pacote"
+
+git add .
+
+🧺 O que esse comando faz:
+Adiciona tudo o que foi modificado ao próximo "pacote de alterações" (chamado de commit). O . significa "todos os arquivos modificados".
+
+✅ Etapa 4: Criar o commit com uma mensagem
+
+git commit -m "Corrige chave duplicada no text_area do Streamlit"
+📝 O que esse comando faz:
+Cria um snapshot (registro) do que foi alterado, com a mensagem que você colocar entre aspas.
+
+Você pode colocar qualquer coisa entre aspas, mas recomenda-se usar mensagens claras.
+
+Exemplo bom: "Ajusta layout da interface de tradução"
+
+Exemplo ruim: "teste"
+
+✅ Etapa 5: Enviar para o GitHub
+
+git push
+🚀 O que esse comando faz:
+Envia os commits locais para o repositório do GitHub.
+Se o seu app está conectado ao Streamlit Cloud, ele será atualizado automaticamente depois disso.
+
+🧩 Recapitulando (resumo rápido)
+
+git status                  # Ver o que foi alterado
+git add .                   # Adicionar tudo ao próximo commit
+git commit -m "mensagem"    # Criar um commit com uma descrição
+git push                    # Enviar para o GitHub

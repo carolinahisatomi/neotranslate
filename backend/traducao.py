@@ -67,7 +67,7 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
     memoria = carregar_memoria()
 
     estilo_base = {"fonte": "Arial", "tamanho": 10}
-    for par in doc_origem.paragraphs:
+    for i, par in enumerate (doc_origem.paragraphs):
         if par.text.strip() and par.runs:
             estilo_base["fonte"] = par.runs[0].font.name or "Arial"
             estilo_base["tamanho"] = par.runs[0].font.size.pt if par.runs[0].font.size else 10
@@ -95,7 +95,7 @@ def traduzir_docx_com_tudo(arquivo, exige_inmetro, tipo_equipamento, aplicar_glo
             corrigido = traducao
         else:
             st.markdown(f"**Original:** {texto}")
-            corrigido = st.text_area("Tradução corrigida", value=traducao, key=texto[:30])
+            corrigido = st.text_area("Tradução corrigida", value=traducao, key=f"correcao_par_{i}")
         p = doc_final.add_paragraph(corrigido)
         run = p.runs[0]
         run.font.name = estilo_base["fonte"]
