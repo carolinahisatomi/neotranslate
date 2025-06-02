@@ -1,4 +1,4 @@
-
+import difflib
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
 
@@ -11,10 +11,23 @@ def adicionar_secao_formatada(doc, titulo, estilo_base):
     run.font.name = estilo_base['fonte']
     par.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
-def adicionar_secoes_padrao(doc, estilo_base, incluir_advertencias=True, incluir_especificacoes=True, incluir_orientacoes=True):
-    if incluir_advertencias:
+def titulo_ja_existe(doc, titulo_alvo, limiar=0.75):
+    titulos_doc = [
+        p.text.strip() for p in doc.paragraphs
+        if p.style.name.startswith("Heading") or (p.text.isupper() and len(p.text.split()) <= 6)
+    ]
+    parecidos = difflib.get_close_matches(titulo_alvo.upper(), titulos_doc, n=1, cutoff=limiar)
+    return bool(parecidos)
+
+def adicionar_secoes_padrao(doc, estilo_base,
+                            incluir_advertencias=True,
+                            incluir_especificacoes=True,
+                            incluir_orientacoes=True):
+    if incluir_advertencias and not titulo_ja_existe(doc, "ADVERTÊNCIAS"):
         adicionar_secao_formatada(doc, "ADVERTÊNCIAS", estilo_base)
-    if incluir_especificacoes:
+
+    if incluir_especificacoes and not titulo_ja_existe(doc, "ESPECIFICAÇÕES TÉCNICAS"):
         adicionar_secao_formatada(doc, "ESPECIFICAÇÕES TÉCNICAS", estilo_base)
-    if incluir_orientacoes:
+
+    if incluir_orientacoes and not titulo_ja_existe(doc, "ORIENTAÇÕES"):
         adicionar_secao_formatada(doc, "ORIENTAÇÕES", estilo_base)
