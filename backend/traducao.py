@@ -210,7 +210,11 @@ def traduzir_docx_preservando_layout(arquivo, exige_inmetro, tipo_equipamento, a
             st.markdown(f"**Original:** {texto}")
             if chave not in st.session_state:
                 st.session_state[chave] = traducao
-            st.session_state[chave] = st.text_area("Tradução corrigida", value=st.session_state[chave], key=chave)
+            corrigido = st.text_area(
+                "Tradução corrigida",
+                value=st.session_state[chave],
+                key=chave,
+            )
 
         par.text = st.session_state[chave]
         traducoes_corrigidas.append((texto, traducao, st.session_state[chave]))
@@ -234,7 +238,11 @@ def traduzir_docx_preservando_layout(arquivo, exige_inmetro, tipo_equipamento, a
                         st.markdown(f"**Original (tabela):** {texto}")
                         if chave not in st.session_state:
                             st.session_state[chave] = traducao
-                        st.session_state[chave] = st.text_area("Tradução corrigida (tabela)", value=st.session_state[chave], key=chave)
+                        corrigido = st.text_area(
+                            "Tradução corrigida (tabela)",
+                            value=st.session_state[chave],
+                            key=chave,
+                        )
                     par.text = st.session_state[chave]
                     traducoes_corrigidas.append((texto, traducao, st.session_state[chave]))
                     itens_processados += 1
