@@ -222,16 +222,16 @@ def traduzir_docx_preservando_layout(arquivo, exige_inmetro, tipo_equipamento, a
         progresso.progress(itens_processados / total_itens, text="Traduzindo parágrafos...")
 
     # Tradução de tabelas
-    for tabela in doc.tables:
-        for linha in tabela.rows:
-            for celula in linha.cells:
-                for i, par in enumerate(celula.paragraphs):
+    for t_idx, tabela in enumerate(doc.tables):
+        for r_idx, linha in enumerate(tabela.rows):
+            for c_idx, celula in enumerate(linha.cells):
+                for p_idx, par in enumerate(celula.paragraphs):
                     texto = par.text.strip()
                     if not texto:
                         continue
                     traducao, _ = traduzir_com_memoria(texto, memoria)
                     hash_texto = hashlib.md5(texto.encode()).hexdigest()
-                    chave = f"celula_{i}_{hash_texto}"
+                    chave = f"celula_{t_idx}_{r_idx}_{c_idx}_{p_idx}_{hash_texto}"
                     if aprovar_tudo:
                         st.session_state[chave] = traducao
                     else:
