@@ -264,7 +264,7 @@ def traduzir_docx_preservando_layout(arquivo, exige_inmetro, tipo_equipamento, a
     if exige_inmetro:
         adicionar_secoes_padrao(doc, estilo_base)
 
-    salvar_memoria(nome_csv, traducoes_corrigidas)
+    salvar_memoria(os.path.basename(nome_csv), traducoes_corrigidas)
 
     buffer = BytesIO()
     doc.save(buffer)

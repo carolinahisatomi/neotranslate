@@ -4,3 +4,4 @@ pandas
 deepl
 python-dotenv
 streamlit-option-menu
+pytest
