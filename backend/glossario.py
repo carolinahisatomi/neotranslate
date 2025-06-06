@@ -6,8 +6,12 @@ def carregar_glossario(caminho='glossario.csv'):
         with open(caminho, newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                termo_en = row.get('termo_ingles', '').strip()
-                termo_pt = row.get('termo_portugues', '').strip()
+                termo_en = (
+                    row.get("en") or row.get("termo_ingles") or ""
+                ).strip()
+                termo_pt = (
+                    row.get("pt") or row.get("termo_portugues") or ""
+                ).strip()
                 if termo_en and termo_pt:
                     glossario[termo_en.lower()] = termo_pt
     except FileNotFoundError:
